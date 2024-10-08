@@ -1,2 +1,2 @@
-from .routers import router
+from .t import *
 from .keyboards import *
