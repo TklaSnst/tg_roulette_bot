@@ -1,1 +1,1 @@
-from routers import fastapi_users
+from .routers import fastapi_users, auth_backend
