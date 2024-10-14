@@ -11,6 +11,6 @@ dotenv.load_dotenv()
 
 start_kb = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton(text="open",
-                          web_app=WebAppInfo(url=""))],
+                          web_app=WebAppInfo(url=f"{os.getenv("WEBHOOK_URL")}/page/base"))],
     [InlineKeyboardButton(text="another...", callback_data="open_smthng")]
 ])

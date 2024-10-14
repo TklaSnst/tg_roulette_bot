@@ -4,6 +4,7 @@ from aiogram.client.default import DefaultBotProperties
 from aiogram import Dispatcher, Bot, F
 from aiogram.enums import ParseMode
 from dotenv import load_dotenv, find_dotenv
+from fastapi.staticfiles import StaticFiles
 
 from api import auth_backend, fastapi_users
 from database.database import create_tables, drop_tables
@@ -14,6 +15,8 @@ import os
 from fastapi import FastAPI, Request
 from tg.t import *
 import tg.keyboards as kbs
+
+from front.pages.pages_router import router as pages_router
 
 
 load_dotenv(find_dotenv())
@@ -36,6 +39,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+app.mount("/static", StaticFiles(directory="static"), name="static")
+app.include_router(pages_router)
 app.include_router(
     fastapi_users.get_auth_router(auth_backend, requires_verification=True),
     prefix="/auth/jwt",

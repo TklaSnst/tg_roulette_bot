@@ -1,0 +1,42 @@
+body {
+    background-color: #235080;
+    font-weight: 600;
+    font-size: 16px;
+    color: #f3f3f3;
+    margin-top: 20px;
+    font-style: oblique;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 300;
+    color: #333;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #5bb5ff;
+    border-color: #5bb5ff;
+}
+
+.btn-light {
+    color: #0a0d0f;
+    background-color: #b3d8fd;
+    border-color: #b3d8fd;
+}
+
+.bank-entry {
+    background-color: #b3d8fd;
+    border-color: #b3d8fd;
+    width: 100px;
+    align-self: left;
+    align-self: bottom;
+}
+
+.main-buttons {
+    border: 50px;
+    border-color: #0a0d0f;
+}
+
+.text-end {
+    font-size: 40px;
+}
