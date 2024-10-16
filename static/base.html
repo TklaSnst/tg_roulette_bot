@@ -10,30 +10,36 @@
 </head>
 <body>
     <main>
-        <div class="px-3 py-2 border-bottom mb-3">
-            <div class="container d-flex flex-wrap justify-content-end">
-                <div class="text-end">
-                    <button type="button" class="btn btn-light text-dark me-2">Login</button>
-                    <button type="button" class="btn btn-primary">Sign-up</button>
-                </div>
-            </div>
-        </div>
+
+        <header class="header">
+            <button type="button" class="btn btn-light text-dark me-2 login-button">Login</button>
+            <button type="button" class="btn btn-primary signup-button">Sign-up</button>
+            <hr class="header-line"/>
+        </header>
 
         <div class="game-wrapper">  
+            <div class="timer">
+                20.00s
+            </div>
+
             <div class="main-buttons">
                 <div class="bank-entry">
                     <form role="search">
                         <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
                     </form>
                 </div>
-                <button type="button" class="btn bet bet-red">Bet</button>
-                <button type="button" class="btn bet bet-black">Bet</button>
+                <button type="button" class="btn bet bet-red">Bet 2x</button>
+                <button type="button" class="btn bet bet-black">Bet 2x</button>
+                <button type="button" class="btn bet bet-green">Bet 5x</button>
+                <button type="button" class="btn bet bet-white">Bet 10x</button>
             </div>
 
-            <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-caret-right-fill arrow" viewBox="0 0 16 16">
-                <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-            </svg>
-            
+            <div class="arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                    <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                </svg>
+            </div>
+
             <div class="wheel-behind"></div>
             <div class="wheel-main">
                 <div class="cells-container">
@@ -76,7 +82,12 @@
                 
                 </div>
             </div>
+
+            <div class="footer">
+            </div>
         </div>
+
+        
     </main>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>

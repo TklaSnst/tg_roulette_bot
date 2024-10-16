@@ -1,19 +1,30 @@
+@import url('fonts.css');
+
 body {
-    background-color: #235080;
+    background-color: #212121;
     font-weight: 600;
     font-size: 16px;
     color: #f3f3f3;
     margin-top: 20px;
     font-style: oblique;
 
+    font-family: Montserrat, sans-serif;
+    font-weight: 400;
+
     overflow-y: scroll;
     position: fixed;
     width: 100%;
     top: calc(-1 * var(--scroll-position));
+
+    height: 590px;
+    width: 380px;
+
+    box-shadow: 0px 0px 300px rgba(34, 60, 80, 0.6) inset;
 }
 
 body.no-scroll {
-    overflow-y: scroll;
+    overflow-y: hidden;
+    overflow-x: hidden;
     position: fixed;
     width: 100%;
     top: calc(-1 * var(--scroll-position));
@@ -40,6 +51,23 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 10px;
     margin-left: 10px;
     border-width: 2px;
+    font-size: 10px; 
+    color: #fff;
+    width: 120px;
+    height: 40px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+.bet-white {
+    color: #000;
+    background-color: #f7f7f7;
+    border-color: #858585;
+}
+
+.bet-green {
+    align: center;
+    background-color: #06681e;
+    border-color: #054d17;
 }
 
 .bet-red {
@@ -55,7 +83,7 @@ h1, h2, h3, h4, h5, h6 {
 .bank-entry {
     background-color: #032346;
     border-color: #021122;
-    width: 115px;
+    width: 120px;
     align-self: left;
     align-self: bottom;
     margin-top: 10px;
@@ -63,12 +91,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .main-buttons {
-    background-color: #173c63;
-    border: 5px solid #0c1f33;
-    box-shadow: 0 0 50px 10px #0e233a inset;
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    position: absolute;
+    background-color: #050505;
+    border: 2px solid #160808;
+    box-shadow: 0 0 50px 10px #141414 inset;
     border-radius:10px;
-    width: 150px;
-    height: 150px;
+    width: 145px;
+    height: 260px;
+    left: 10px;
+    top: 280px;
 }
 
 .text-end {
@@ -79,20 +113,20 @@ h1, h2, h3, h4, h5, h6 {
     width: 550px;
     height: 550px;
     position: absolute;
-    top: 150px;
-    right: -350px;
+    top: 50px;
+    right: -400px;
 }
 
 .wheel-behind {
-    border: 5px solid #0c1f33;
+    border: 5px solid #160808;
     border-radius: 300px;
     width: 580px;
     height: 580px;
     position: absolute;
-    top: 135px;
-    right: -365px;
-    background-color: #173c63;
-    box-shadow: 0 0 40px 20px #0c1f33 inset;
+    top: 35px;
+    right: -415px;
+    background-color: #0f0f0f;
+    box-shadow: 0 0 40px 20px #141414 inset;
 }
 
 .roll_cell {
@@ -115,7 +149,36 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .arrow {
+    position: absolute;
+    top:300px;
+    right: 170px;
+}
+
+.header {
     position: relative;
-    top:235px;
-    right: -150px;
+    align-self: right;
+}
+
+.header-line {
+    align-self: right;
+    width: 500;
+    size: 5;
+    color: #021122;
+}
+
+.login-button, .signup-button {
+    align-items: right;  
+}
+
+.ftr {
+    position: relative;
+}
+
+.timer {
+    font-size: 50px;
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    border-bottom: 3px solid #fff;
+    width: 200px; 
 }
