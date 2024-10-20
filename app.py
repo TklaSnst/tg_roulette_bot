@@ -5,11 +5,8 @@ from aiogram import Dispatcher, Bot, F
 from aiogram.enums import ParseMode
 from dotenv import load_dotenv, find_dotenv
 from fastapi.staticfiles import StaticFiles
-
-from api import auth_backend, fastapi_users
 from database.database import create_tables, drop_tables
 
-from api.users.schemas import (UserCreate, UserRead, UserUpdate)
 import os
 
 from fastapi import FastAPI, Request
@@ -41,16 +38,6 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 app.include_router(pages_router)
-app.include_router(
-    fastapi_users.get_auth_router(auth_backend, requires_verification=True),
-    prefix="/auth/jwt",
-    tags=["fastapo_users_auth"],
-)
-app.include_router(
-    fastapi_users.get_register_router(UserRead, UserCreate),
-    prefix="/auth",
-    tags=["auth"],
-)
 
 
 @app.post('/webhook')
@@ -61,6 +48,7 @@ async def webhook(request: Request):
 
 @dp.message(F.text == "/start")
 async def start(message: Message):
-    await message.delete()
+    ans = f'{message.from_user.full_name}'
     await message.answer_photo(caption=START, reply_markup=kbs.start_kb, photo=PHOTO_URL)
+    await message.answer(text=ans)
 
