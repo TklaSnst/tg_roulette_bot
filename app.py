@@ -1,3 +1,4 @@
+import datetime
 from contextlib import asynccontextmanager
 from aiogram.types import Update, Message
 from aiogram.client.default import DefaultBotProperties
@@ -5,8 +6,10 @@ from aiogram import Dispatcher, Bot, F
 from aiogram.enums import ParseMode
 from dotenv import load_dotenv, find_dotenv
 from fastapi.staticfiles import StaticFiles
-from database.database import create_tables, drop_tables
-
+from database.database import create_tables, drop_tables, async_session
+from database.crud import create_user
+from database.schemas import CreateUser
+from database.models import User
 import os
 
 from fastapi import FastAPI, Request
@@ -48,7 +51,11 @@ async def webhook(request: Request):
 
 @dp.message(F.text == "/start")
 async def start(message: Message):
-    ans = f'{message.from_user.full_name}'
+    user_create = CreateUser(
+        name=message.from_user.full_name,
+        tg_id=message.from_user.id,
+        balance=0,
+    )
+    data = User(**user_create.model_dump())
+    await create_user(async_session=async_session, user_add=data)
     await message.answer_photo(caption=START, reply_markup=kbs.start_kb, photo=PHOTO_URL)
-    await message.answer(text=ans)
-
