@@ -1,5 +1,7 @@
-from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
-from .models import Base
+from fastapi import Depends
+from fastapi_users_db_sqlalchemy import SQLAlchemyUserDatabase
+from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine, AsyncSession
+from .models import Base, User
 from dotenv import load_dotenv
 import os
 
@@ -17,3 +19,7 @@ async def create_tables():
 async def drop_tables():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
+
+
+async def get_user_db(session: AsyncSession = async_session):
+    yield SQLAlchemyUserDatabase(session, User)
