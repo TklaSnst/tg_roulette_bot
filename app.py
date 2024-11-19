@@ -1,4 +1,4 @@
-import datetime
+from users.auth import fastapi_users
 from contextlib import asynccontextmanager
 from aiogram.types import Update, Message
 from aiogram.client.default import DefaultBotProperties
@@ -6,12 +6,12 @@ from aiogram import Dispatcher, Bot, F
 from aiogram.enums import ParseMode
 from dotenv import load_dotenv, find_dotenv
 from fastapi.staticfiles import StaticFiles
+from users.auth import auth_backend
 from database.database import create_tables, drop_tables, async_session
 from database.crud import create_user
-from database.schemas import CreateUser
+from users.user_schemas import UserCreate
 from database.models import User
 import os
-
 from fastapi import FastAPI, Request
 from tg.t import *
 import tg.keyboards as kbs
@@ -41,6 +41,9 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 app.include_router(pages_router)
+app.include_router(
+    fastapi_users.get_auth_router(auth_backend), prefix="/auth/jwt", tags=["auth"]
+)
 
 
 @app.post('/webhook')
@@ -51,10 +54,11 @@ async def webhook(request: Request):
 
 @dp.message(F.text == "/start")
 async def start(message: Message):
-    user_create = CreateUser(
-        name=message.from_user.full_name,
+    user_create = UserCreate(
+        tg_fullname=message.from_user.full_name,
         tg_id=message.from_user.id,
-        balance=0,
+        balance=100,
+        is_superuser=False,
     )
     data = User(**user_create.model_dump())
     await create_user(async_session=async_session, user_add=data)

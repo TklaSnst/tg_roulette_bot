@@ -14,7 +14,7 @@ async def create_user(async_session: AsyncSession, user_add: User):
             # await session.refresh(user_add)
 
 
-async def get_user_by_tgid(async_session: AsyncSession, user_add: User):
+async def get_user_by_tg_id(async_session: AsyncSession, user_add: User):
     async with async_session() as session:
         stmt = select(User).where(User.tg_id == user_add.tg_id)
         result = await session.execute(stmt)
