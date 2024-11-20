@@ -37,13 +37,28 @@ const gameStart = (btn_color) => {
         console.log("s-red");
     }
 
-    if (
-        (btn_color == 1 && b == "red") || 
+    var log = document.getElementById("log");
+
+    if ((btn_color == 1 && b == "red") || 
         (btn_color == 2 && b == "black") ||
         (btn_color == 3 && b == "white") ||
         (btn_color == 4 && b == "green") 
-    ){console.log("win!");}
-    else {console.log("loose!");}
+    ){
+        console.log("win!");
+        setTimeout(() => {
+            log.style.color = "#fff";
+            log.style.color = "#06681e";
+            log.textContent = "WIN!";
+        }, 3800)
+    }
+    else {
+        console.log("loose!");
+        setTimeout(() => {
+            log.style.color = "#fff";
+            log.style.color = "#9c1b1b";
+            log.textContent = "LOOSE!";
+        }, 3800)
+    }
 
     setTimeout(() => {
         cells_container.style.transition = '2s'

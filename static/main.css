@@ -35,6 +35,23 @@ h1, h2, h3, h4, h5, h6 {
     color: #333;
 }
 
+.balance {
+    text-align: center;
+    font-family: Montserrat, sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 26px;
+    position: relative;
+    border: 2px;
+    top: -37px;
+    left: 290px;
+    width: 80px;
+    height: 37px;
+    border-radius: 16px;
+    background-color: #fff;
+    color: #000;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #5bb5ff;
@@ -181,4 +198,5 @@ h1, h2, h3, h4, h5, h6 {
     font-style: normal;
     border-bottom: 3px solid #fff;
     width: 200px; 
+    transition: 0.3s ease-in-out;
 }

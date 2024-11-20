@@ -28,3 +28,15 @@ async def get_user_by_id(async_session: AsyncSession, user_add: User):
         result = await session.execute(stmt)
         user = result.scalar()
         return user
+
+
+async def get_list_of_users(async_session: AsyncSession):
+    async with async_session() as session:
+        text = ""
+        i = 1
+        stmt = select(User)
+        result = await session.execute(stmt)
+        users = result.scalars()
+        for user in users:
+            text += f"{i}- name: {user.tg_fullname}, tg_id: {user.tg_id}, balance: {user.balance}\n"
+        return text

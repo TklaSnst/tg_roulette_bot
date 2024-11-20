@@ -1,6 +1,6 @@
 from users.auth import fastapi_users
 from contextlib import asynccontextmanager
-from aiogram.types import Update, Message
+from aiogram.types import Update, Message, CallbackQuery
 from aiogram.client.default import DefaultBotProperties
 from aiogram import Dispatcher, Bot, F
 from aiogram.enums import ParseMode
@@ -8,7 +8,8 @@ from dotenv import load_dotenv, find_dotenv
 from fastapi.staticfiles import StaticFiles
 from users.auth import auth_backend
 from database.database import create_tables, drop_tables, async_session
-from database.crud import create_user
+from database.crud import (create_user, get_list_of_users,
+                           get_user_by_tg_id)
 from users.user_schemas import UserCreate
 from database.models import User
 import os
@@ -62,4 +63,17 @@ async def start(message: Message):
     )
     data = User(**user_create.model_dump())
     await create_user(async_session=async_session, user_add=data)
-    await message.answer_photo(caption=START, reply_markup=kbs.start_kb, photo=PHOTO_URL)
+    if (str(message.from_user.id) == os.getenv("ADMIN1TGID")):
+        await message.answer_photo(caption=START, reply_markup=kbs.start_kb_admin, photo=PHOTO_URL)
+    else:
+        await message.answer_photo(caption=START, reply_markup=kbs.start_kb, photo=PHOTO_URL)
+
+
+@dp.callback_query(F.data == "list of users")
+async def get_all_users(callback: CallbackQuery):
+    if callback.from_user.id == os.getenv("ADMIN1TGID"):
+        t = await get_list_of_users(async_session=async_session)
+        print(t)
+        await callback.message.answer(text=t)
+    else:
+        await callback.message.answer(text="U are not admin!!!")
