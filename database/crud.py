@@ -40,3 +40,12 @@ async def get_list_of_users(async_session: AsyncSession):
         for user in users:
             text += f"{i}- name: {user.tg_fullname}, tg_id: {user.tg_id}, balance: {user.balance}\n"
         return text
+
+
+async def get_user_balance(async_session: AsyncSession, tg_id):
+    async with async_session() as session:
+        stmt = select(User).where(User.tg_id == tg_id)
+        result = await session.execute(stmt)
+        user = result.scalar()
+        return user.balance
+
