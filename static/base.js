@@ -1,6 +1,8 @@
 console.log("hello world!");
 var angle = 0;
 
+var a = window.Telegram.WebApp;
+
 const gameStart = (btn_color) => {
     var cells_container = document.getElementById("cells_container");
     var ncell = Math.trunc(Math.random() * 100);
@@ -12,12 +14,12 @@ const gameStart = (btn_color) => {
     console.log(user_balance);
 
 
-    if (user_bet > user_balance){
+    if (parseInt(user_bet) > parseInt(user_balance)){
         log.style.color = "#fff";
         log.style.color = "#9c1b1b";
         log.textContent = "TOO BIG BET!";
     }
-    else if (user_bet == 0){
+    else if (parseInt(user_bet) == 0){
         log.style.color = "#fff";
         log.style.color = "#9c1b1b";
         log.textContent = "CAN'T BET 0!";
@@ -61,15 +63,15 @@ const gameStart = (btn_color) => {
                     case 'red': 
                     case 'black':
                         var a = parseInt(user_bet) + parseInt(user_balance);
-                        document.getElementById("user_balance").textContent = str(a);
+                        document.getElementById("user_balance").textContent = a;
                         break;
                     case 'white':
                         var a = parseInt(user_bet) * 4 + parseInt(user_balance);
-                        document.getElementById("user_balance").textContent = str(a);
+                        document.getElementById("user_balance").textContent = a;
                         break;
                     case 'green':
                         var a = parseInt(user_bet) * 9 + parseInt(user_balance);
-                        document.getElementById("user_balance").textContent = str(a);
+                        document.getElementById("user_balance").textContent = a;
                         break;
                 }
             }, 3800)

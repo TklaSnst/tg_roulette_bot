@@ -41,9 +41,9 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     font-style: normal;
     font-size: 26px;
-    position: relative;
+    position: absolute;
     border: 2px;
-    top: -37px;
+    top: 0px;
     left: 290px;
     width: 80px;
     height: 37px;

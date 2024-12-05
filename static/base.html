@@ -7,15 +7,15 @@
     <title>BlackJack</title>
     <link rel="stylesheet" href="{{ url_for('static', path='bootstrap.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='main.css') }}">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="{{ url_for('static', path='base.js') }}"></script>
 </head>
 <body>
     <main>
 
         <header class="header">
-            <button type="button" class="btn btn-light text-dark me-2 login-button">Login</button>
-            <button type="button" class="btn btn-primary signup-button">Sign-up</button>
-            <div class="balance" id="user_balance">1000</div>
+            <div class='username'>{{ username }}</div>
+            <div class="balance" id="user_balance">{{ user_balance }}</div>
             <hr class="header-line"/>
         </header>
 
