@@ -10,6 +10,15 @@ const gameStart = (btn_color) => {
     var user_bet = document.getElementById("bet-enter").textContent;
     var log = document.getElementById("log");
 
+    let searchParams = window.location.search.substr(1).split('&');
+    let queryParams = {};
+    for (let param of searchParams) {
+        let [key, value] = param.split('=');
+        queryParams[key] = decodeURIComponent(value || "");
+    }
+
+    const tgid = parseInt(queryParams.tg_id);
+
     console.log(user_bet);
     console.log(user_balance);
 
@@ -50,11 +59,14 @@ const gameStart = (btn_color) => {
             b = "red";
         }
 
+        const request = fetch(`https://d24e-94-137-3-176.ngrok-free.app/page/dbrequest/?tgid=${tgid}&usr_bet=${user_bet}&usr_btn=${btn_color}&game_res=${b}`).then(
+            console.log(request)
+        );
+
         if ((btn_color == 1 && b == "red") || 
             (btn_color == 2 && b == "black") ||
             (btn_color == 3 && b == "white") ||
-            (btn_color == 4 && b == "green") 
-        ){
+            (btn_color == 4 && b == "green") ){
             setTimeout(() => {
                 log.style.color = "#fff";
                 log.style.color = "#06681e";

@@ -67,11 +67,27 @@ async def start(message: Message):
                                photo=PHOTO_URL)
 
 
-@dp.callback_query(F.data == "list of users")
+@dp.callback_query(F.data == "list_of_users")
 async def get_all_users(callback: CallbackQuery):
-    if callback.from_user.id == os.getenv("ADMIN1TGID"):
+    if callback.from_user.id == int(os.getenv("ADMIN1TGID")):
         t = await get_list_of_users(async_session=async_session)
         print(t)
         await callback.message.answer(text=t)
     else:
-        await callback.message.answer(text="U are not admin!!!")
+        await callback.message.answer(text="U are not an    admin!!!")
+
+
+@dp.callback_query(F.data == "ban_user")
+async def get_all_users(callback: CallbackQuery):
+    if callback.from_user.id == int(os.getenv("ADMIN1TGID")):
+        pass
+    else:
+        await callback.message.answer(text="U are not an admin!!!")
+
+
+@dp.callback_query(F.data == "add_admin")
+async def get_all_users(callback: CallbackQuery):
+    if callback.from_user.id == int(os.getenv("ADMIN1TGID")):
+        pass
+    else:
+        await callback.message.answer(text="U are not an admin!!!")
