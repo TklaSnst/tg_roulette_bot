@@ -2,6 +2,7 @@ console.log("hello world!");
 var angle = 0;
 
 var a = window.Telegram.WebApp;
+const url='https://d431-94-137-4-9.ngrok-free.app'
 
 const gameStart = (btn_color) => {
     var cells_container = document.getElementById("cells_container");
@@ -16,19 +17,14 @@ const gameStart = (btn_color) => {
         let [key, value] = param.split('=');
         queryParams[key] = decodeURIComponent(value || "");
     }
-
+    
     const tgid = parseInt(queryParams.tg_id);
-
-    console.log(user_bet);
-    console.log(user_balance);
-
-
     if (parseInt(user_bet) > parseInt(user_balance)){
         log.style.color = "#fff";
         log.style.color = "#9c1b1b";
         log.textContent = "TOO BIG BET!";
     }
-    else if (parseInt(user_bet) == 0){
+    else if (parseInt(user_bet) == 0 || user_bet == ""){
         log.style.color = "#fff";
         log.style.color = "#9c1b1b";
         log.textContent = "CAN'T BET 0!";
@@ -59,14 +55,20 @@ const gameStart = (btn_color) => {
             b = "red";
         }
 
-        const request = fetch(`https://d24e-94-137-3-176.ngrok-free.app/page/dbrequest/?tgid=${tgid}&usr_bet=${user_bet}&usr_btn=${btn_color}&game_res=${b}`).then(
-            console.log(request)
+        var rq_balance
+        const data = fetch(`${url}/page/dbrequest/?tgid=${tgid}&usr_bet=${user_bet}&usr_btn=${btn_color}&game_res=${b}`).then(
+            (data) => {
+                const d2 = data.json().then((info) => {
+                    rq_balance = info;
+                })
+            }
         );
 
         if ((btn_color == 1 && b == "red") || 
             (btn_color == 2 && b == "black") ||
             (btn_color == 3 && b == "white") ||
             (btn_color == 4 && b == "green") ){
+            var bal;
             setTimeout(() => {
                 log.style.color = "#fff";
                 log.style.color = "#06681e";
@@ -74,23 +76,38 @@ const gameStart = (btn_color) => {
                 switch(b){
                     case 'red': 
                     case 'black':
-                        var a = parseInt(user_bet) + parseInt(user_balance);
+                        var a = parseInt(user_bet) + parseInt(rq_balance);
                         document.getElementById("user_balance").textContent = a;
+                        var data = fetch(`${url}/page/usr_win/?tgid=${tgid}&usr_bet=${user_bet}&coefficient=2`).then(
+                            (data) => {const d2 = data.json().then((info) => {
+                                document.getElementById("user_balance").textContent = String(info)
+                            })}
+                        );
                         break;
                     case 'white':
-                        var a = parseInt(user_bet) * 4 + parseInt(user_balance);
+                        var a = parseInt(user_bet) * 4 + parseInt(rq_balance);
                         document.getElementById("user_balance").textContent = a;
+                        var data = fetch(`${url}/page/usr_win/?tgid=${tgid}&usr_bet=${user_bet}&coefficient=5`).then(
+                            (data) => {const d2 = data.json().then((info) => {
+                                document.getElementById("user_balance").textContent = String(info)
+                            })}
+                        );
                         break;
                     case 'green':
-                        var a = parseInt(user_bet) * 9 + parseInt(user_balance);
+                        var a = parseInt(user_bet) * 9 + parseInt(rq_balance);
                         document.getElementById("user_balance").textContent = a;
+                        var data = fetch(`${url}/page/usr_win/?tgid=${tgid}&usr_bet=${user_bet}&coefficient=10`).then(
+                            (data) => {const d2 = data.json().then((info) => {
+                                document.getElementById("user_balance").textContent = String(info)
+                            })}
+                        );
                         break;
                 }
             }, 3800)
         }
         else {
             setTimeout(() => {
-                log.style.color = "#fff";
+                log.style.color = "#fff"; 
                 log.style.color = "#9c1b1b";
                 log.textContent = "LOOSE!";
             }, 3800)
@@ -107,6 +124,7 @@ const gameStart = (btn_color) => {
             document.getElementById("bt-black").disabled = false;
             document.getElementById("bt-white").disabled = false;
         }, 10100);
+        user_balance
     }
 }
 

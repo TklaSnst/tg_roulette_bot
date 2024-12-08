@@ -41,16 +41,35 @@ async def get_user_balance(async_session: AsyncSession, tg_id: int):
         return user.balance
 
 
-async def patch_user_balance(async_session: AsyncSession, tg_id: int, bet: int = 0, win: int = 0):
+async def patch_user_balance(async_session: AsyncSession, tg_id: int, bet: int = 0):
     async with async_session() as session:
         try:
             stmt = select(User).where(User.tg_id == tg_id)
             result = await session.execute(stmt)
             user = result.scalar()
-            user.balance -= bet
-            await session.commit()
+            if user.balance < bet:
+                return 0
+            else:
+                user.balance -= bet
+                a = user.balance
+                await session.commit()
+                return a
         except Exception as e:
             session.rollback()
+            raise e
+
+
+async def user_win(async_session: AsyncSession, tg_id: int, bet: int, coeff: int):
+    async with async_session() as session:
+        try:
+            stmt = select(User).where(User.tg_id == tg_id)
+            result = await session.execute(stmt)
+            user = result.scalar()
+            user.balance += coeff * bet
+            bal = user.balance
+            await session.commit()
+            return bal
+        except Exception as e:
             raise e
 
 
